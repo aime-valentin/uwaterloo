@@ -13,5 +13,6 @@ All the activies within a module have been aggregated to the module level. Examp
 ```
 #in your command line 
 > git clone <link-to-this-repo>
+> cd uwaterloo
 > python uwaterloo.py
 ```
