@@ -19,7 +19,7 @@ def define_range(n):
 
 def create_df(repo):
     dfs = []
-    for commit in repo.traverse_commits():
+    for commit in tqdm(repo.traverse_commits(), desc = 'Processing commits...', ascii=False, ncols = 75):
         commit_hash = commit.hash
         commit_add_ln = commit.insertions
         commit_rem_ln = commit.deletions
