@@ -6,6 +6,8 @@
 #library imports
 import pydriller as pdr
 import pandas as pd
+from tqdm import tqdm
+import os.path as osp
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
@@ -17,7 +19,7 @@ def define_range(n):
 
 def create_df(repo):
     dfs = []
-    for commit in tqdm(repo.traverse_commits(), ):
+    for commit in repo.traverse_commits():
         commit_hash = commit.hash
         commit_add_ln = commit.insertions
         commit_rem_ln = commit.deletions
