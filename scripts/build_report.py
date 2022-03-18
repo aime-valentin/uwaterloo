@@ -12,6 +12,10 @@ from data_load import define_range
 
 colsepname = ''
 def save_table(df, filename, decimals=2, colsep=False, **kwargs):
+    '''
+    Given a dataframe object,
+    The functions saves the dataframe as a Latex Table.
+    '''
 	global colsepname
 	if not colsep is False:
 		colsepname = colsepname + 'A'

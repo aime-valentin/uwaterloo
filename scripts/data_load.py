@@ -13,11 +13,19 @@ from dateutil.relativedelta import relativedelta
 
 #define the range of study period
 def define_range(n):
+    '''
+    Given months 'n' as an int,
+    The function returns today's date and n-months in the past date.
+    '''
     to_tag = datetime.now()
     from_tag   = to_tag - relativedelta(months = n)
     return (from_tag, to_tag)
 
 def create_df(repo):
+    '''
+    Given Pydriller.Repository object,
+    The function returns a dataframe of commits, files changed, and the nummber of inserted/deleted lines
+    '''
     dfs = []
     for commit in tqdm(repo.traverse_commits(), desc = 'Processing commits...', ascii=False, ncols = 75):
         commit_hash = commit.hash
@@ -36,6 +44,10 @@ def create_df(repo):
     return pd.concat(dfs)
 #extract data
 def data_extract():
+    '''
+    The function visits openstack remote repository,
+    And it creates a dataframe of commits, modified files, deleted/added lines
+    '''
     path = "data/data.pkl"
     if osp.exists(path):
         return pd.read_pickle(path)
