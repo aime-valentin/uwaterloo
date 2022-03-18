@@ -20,8 +20,12 @@ All the activies within a module have been aggregated to the module level. Examp
 
 #Important Libraries
 If conda install fails, you might want to install the following libraries using pip3
-pandas    --version 1.4.1
-pydriller --version 2.1
-seaborn   --version 0.11.2
-tqdm      --version 4.63.0
+pandas    --version 1.4.1 
+
+pydriller --version 2.1 
+
+seaborn   --version 0.11.2 
+
+tqdm      --version 4.63.0 
+
 numpy     --version 1.21.2
