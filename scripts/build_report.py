@@ -30,16 +30,23 @@ def save_table(df, filename, decimals=2, colsep=False, **kwargs):
 		if not colsep is False:
 			f.write('\\renewcommand{\\tabcolsep}{\\oldtabcolsep' + colsepname +'}\n')
 
-def make_bar_plot(df,path):
-    pass
+def make_bar_plot(df,xaxis, yaxis, title, xlabel, ylabel, path):
+    sns.set_style('whitegrid')
+    sns.set_context('notebook')
+    sns.barplot(x = xaxis, y = yaxis, data =df)
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.xticks(rotation = 45)
+    plt.savefig(path, dpi = 300)
 
 def report_files():
     from_, to_ = define_range(6)
     active_mod, churn = clean_data()
     summary_stats = churn[['churn']].describe()
     save_table(summary_stats,'report/tables/churn_rate_summary_stats.tex')
-    make_bar_plot(active_mod,'report/figures/top12_active_modules.png')
-    make_bar_plot(churn,"report/figures/top12_modules_with_most_churn")
+    make_bar_plot(active_mod,'module','commit_hash','12 Most Active Modules','Modules','Commit Counts','report/figures/top12_active_modules.png')
+    make_bar_plot(churn,'module','churn','12 Modules With High Churn Rate','Modules','Churn',"report/figures/top12_modules_with_most_churn")
     with open("report/study_period.txt") as f:
         f.write("OpenStack Nova Project\n")
         f.write(f"Study Period: {from_.date} to {to_.date}")
