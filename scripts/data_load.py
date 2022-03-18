@@ -17,7 +17,7 @@ def define_range(n):
 
 def create_df(repo):
     dfs = []
-    for commit in repo.traverse_commits():
+    for commit in tqdm(repo.traverse_commits(), ):
         commit_hash = commit.hash
         commit_add_ln = commit.insertions
         commit_rem_ln = commit.deletions
@@ -33,18 +33,21 @@ def create_df(repo):
         dfs.append(df)
     return pd.concat(dfs)
 #extract data
-def data_extract(repo_url,from_, to_):
+def data_extract():
+    path = "data/data.pkl"
+    if osp.exists(path):
+        return pd.read_pickle(path)
+
+    from_,to_ = define_range(6)
+    repo_url  = "https://github.com/openstack/nova.git"
     repo = pdr.Repository(repo_url, since = from_, to = to_, only_in_branch = 'master')
     data = create_df(repo)
     data.to_pickle("data/data.pkl")
+    return data
 
-def main():
-    repo_url  = "https://github.com/openstack/nova.git"
-    from_,to_ = define_range(6)
-    data_extract(repo_url, from_, to_)
 
 if __name__ == '__main__':
-    main()
+    data_extract()
     # from_, to_  = define_range(6)
     # commits = list(pdr.Repository("https://github.com/openstack/nova.git", from_tag = from_, to_tag = to_, only_in_branch = 'master').traverse_commits())
     # print(len(commits))
